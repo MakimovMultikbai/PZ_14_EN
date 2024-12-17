@@ -8,47 +8,51 @@ namespace Facade
 {
     public class ShopFacade
     {
-        private ProductService productService;
-        private CartService cartService;
+        private readonly ProductService productService;
+        private readonly CartService cartService;
+        private readonly IDataStorageAdapter<Product> csvAdapter;
+        private readonly IDataStorageAdapter<Product> xmlAdapter;
 
         public ShopFacade()
         {
             productService = new ProductService();
             cartService = new CartService();
+
+            // Инициализируем адаптеры
+            var csvSettings = new CsvAdapterSettings { HasHeaders = true };
+            csvAdapter = new CsvAdapter<Product>(csvSettings);
+            xmlAdapter = new XmlAdapter<Product>();
         }
 
-        public void AddProduct(Product product) => productService.AddProduct(product);
-        public void RemoveProduct(Product product) => productService.RemoveProduct(product);
         public List<Product> GetAllProducts() => productService.GetProducts();
-
-        public void AddToCart(Product product) => cartService.AddToCart(product);
-        public void RemoveFromCart(Product product) => cartService.RemoveFromCart(product);
         public List<Product> GetCartProducts() => cartService.GetCartProducts();
 
-        public bool PlaceOrder() => cartService.PlaceOrder();
+        public void AddProduct(Product product) => productService.AddProduct(product);
+        public void AddToCart(Product product) => cartService.AddToCart(product);
+        public void RemoveFromCart(Product product) => cartService.RemoveFromCart(product);
 
-        public void SaveToCsv()
+        // Методы для CSV
+        public void SaveProductsToCsv(string filePath)
         {
-            productService.SaveToCsv("products.csv");
-            cartService.SaveToCsv("orders.csv");
+            csvAdapter.Save(filePath, productService.GetProducts());
         }
 
-        public void LoadFromCsv()
+        public void LoadProductsFromCsv(string filePath)
         {
-            productService.LoadFromCsv("products.csv");
-            cartService.LoadFromCsv("orders.csv");
+            var products = csvAdapter.Load(filePath);
+            productService.LoadProducts(products);
         }
 
-        public void SaveToXml()
+        // Методы для XML
+        public void SaveProductsToXml(string filePath)
         {
-            productService.SaveToXml("products.xml");
-            cartService.SaveToXml("orders.xml");
+            xmlAdapter.Save(filePath, productService.GetProducts());
         }
 
-        public void LoadFromXml()
+        public void LoadProductsFromXml(string filePath)
         {
-            productService.LoadFromXml("products.xml");
-            cartService.LoadFromXml("orders.xml");
+            var products = xmlAdapter.Load(filePath);
+            productService.LoadProducts(products);
         }
     }
 }

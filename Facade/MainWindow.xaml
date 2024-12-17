@@ -5,54 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Facade"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="400" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="7*"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!-- Список доступных продуктов -->
-        <GroupBox Header="Available Products" Margin="10" Grid.Column="0">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="7*" />
-                    <RowDefinition Height="1*" />
-                </Grid.RowDefinitions>
-                <ListBox x:Name="ProductsListBox" Grid.Row="0" Margin="5" />
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5">
-                    <Button Content="Add to Cart" Width="100" Margin="5" Click="AddToCartButton_Click" />
-                    <Button Content="Add Product" Width="100" Margin="5" Click="AddProductButton_Click" />
-                    <Button Content="Remove Product" Width="120" Margin="5" Click="RemoveProductButton_Click" />
-                </StackPanel>
-            </Grid>
-        </GroupBox>
-
-        <!-- Список товаров в корзине -->
-        <GroupBox Header="Cart" Margin="10" Grid.Column="1">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="7*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <ListBox x:Name="CartListBox" Grid.Row="0" Margin="5" />
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5">
-                    <Button Content="Place Order" Width="100" Margin="5" Click="PlaceOrderButton_Click" />
-                    <Button Content="Remove from Cart" Width="150" Margin="5" Click="RemoveFromCartButton_Click" />
-                </StackPanel>
-            </Grid>
-        </GroupBox>
-
-        <!-- Кнопки управления данными -->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10" Grid.ColumnSpan="2" Grid.Row="1">
-            <Button Content="Save to CSV" Width="120" Margin="5" Click="SaveToCsvButton_Click" />
-            <Button Content="Load from CSV" Width="120" Margin="5" Click="LoadFromCsvButton_Click" />
-            <Button Content="Save to XML" Width="120" Margin="5" Click="SaveToXmlButton_Click" />
-            <Button Content="Load from XML" Width="120" Margin="5" Click="LoadFromXmlButton_Click" />
+            <StackPanel Grid.Column="0" Margin="10">
+            <TextBlock Text="Продукты" FontWeight="Bold" Margin="0,0,0,5"/>
+            <ListBox x:Name="ProductsListBox" Height="150" Margin="0,0,0,10"/>
+            <TextBlock Text="Название продукта"/>
+            <TextBox x:Name="ProductNameTextBox" Margin="0,0,0,5"/>
+            <TextBlock Text="Цена продукта"/>
+            <TextBox x:Name="ProductPriceTextBox" Margin="0,0,0,5"/>
+            <Button Content="Добавить продукт" Click="AddProductButton_Click" Margin="0,0,0,5"/>
         </StackPanel>
+
+            <!-- Список товаров в корзине -->
+
+        <StackPanel Grid.Column="1" Margin="10">
+            <TextBlock Text="Корзина" FontWeight="Bold" Margin="0,0,0,5"/>
+            <ListBox x:Name="CartListBox" Height="150" Margin="0,0,0,10"/>
+            <Button Content="Добавить в корзину" Click="AddToCartButton_Click" Margin="0,0,0,5"/>
+            <Button Content="Удалить из корзины" Click="RemoveFromCartButton_Click"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button Content="Сохранить в CSV"   Click="SaveToCsvButton_Click"   Height="25" Margin="5"/>
+            <Button Content="Загрузить из CSV"  Click="LoadFromCsvButton_Click" Height="25" Margin="5"/>
+            <Button Content="Сохранить в XML"   Click="SaveToXmlButton_Click"   Height="25" Margin="5"/>
+            <Button Content="Загрузить из XML"  Click="LoadFromXmlButton_Click" Height="25" Margin="5"/>
+        </StackPanel>
+        <!-- Кнопки управления данными -->
+        
     </Grid>
 </Window>

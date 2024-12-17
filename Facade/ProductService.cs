@@ -16,32 +16,9 @@ namespace Facade
         public void RemoveProduct(Product product) => products.Remove(product);
         public List<Product> GetProducts() => new List<Product>(products);
 
-        public void SaveToCsv(string filePath)
+        public void LoadProducts(List<Product> loadedProducts)
         {
-            File.WriteAllLines(filePath, products.Select(p => p.Name));
-        }
-
-        public void LoadFromCsv(string filePath)
-        {
-            if (File.Exists(filePath))
-            {
-                products = File.ReadAllLines(filePath).Select(name => new Product { Name = name }).ToList();
-            }
-        }
-
-        public void SaveToXml(string filePath)
-        {
-            using var writer = new StreamWriter(filePath);
-            new XmlSerializer(typeof(List<Product>)).Serialize(writer, products);
-        }
-
-        public void LoadFromXml(string filePath)
-        {
-            if (File.Exists(filePath))
-            {
-                using var reader = new StreamReader(filePath);
-                products = (List<Product>)new XmlSerializer(typeof(List<Product>)).Deserialize(reader);
-            }
+            products = loadedProducts ?? new List<Product>();
         }
     }
 }

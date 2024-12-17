@@ -22,27 +22,39 @@ namespace Facade
         {
             InitializeComponent();
             shopFacade = new ShopFacade();
-
-            RefreshProductsList();
+            RefreshProductList();
             RefreshCartList();
         }
 
-        private void RefreshProductsList()
+        private void RefreshProductList()
         {
-            ProductsListBox.Items.Clear();
-            foreach (var product in shopFacade.GetAllProducts())
-            {
-                ProductsListBox.Items.Add(product);
-            }
+            ProductsListBox.ItemsSource = null;
+            ProductsListBox.ItemsSource = shopFacade.GetAllProducts();
         }
 
         private void RefreshCartList()
         {
-            CartListBox.Items.Clear();
-            foreach (var product in shopFacade.GetCartProducts())
+            CartListBox.ItemsSource = null;
+            CartListBox.ItemsSource = shopFacade.GetCartProducts();
+        }
+
+        private void AddProductButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!decimal.TryParse(ProductPriceTextBox.Text, out decimal price))
             {
-                CartListBox.Items.Add(product);
+                MessageBox.Show("Введите корректную цену!");
+                return;
             }
+
+            var product = new Product
+            {
+                Id = shopFacade.GetAllProducts().Count + 1,
+                Name = ProductNameTextBox.Text,
+                Price = price
+            };
+
+            shopFacade.AddProduct(product);
+            RefreshProductList();
         }
 
         private void AddToCartButton_Click(object sender, RoutedEventArgs e)
@@ -63,64 +75,27 @@ namespace Facade
             }
         }
 
-        private void AddProductButton_Click(object sender, RoutedEventArgs e)
-        {
-            var productName = Microsoft.VisualBasic.Interaction.InputBox("Enter product name:", "New Product", "");
-            if (!string.IsNullOrWhiteSpace(productName))
-            {
-                shopFacade.AddProduct(new Product { Name = productName });
-                RefreshProductsList();
-            }
-        }
-
-        private void RemoveProductButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (ProductsListBox.SelectedItem is Product product)
-            {
-                shopFacade.RemoveProduct(product);
-                RefreshProductsList();
-            }
-        }
-
-        private void PlaceOrderButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (shopFacade.PlaceOrder())
-            {
-                MessageBox.Show("Order placed successfully!");
-                RefreshCartList();
-            }
-            else
-            {
-                MessageBox.Show("Cart is empty!");
-            }
-        }
-
         private void SaveToCsvButton_Click(object sender, RoutedEventArgs e)
         {
-            shopFacade.SaveToCsv();
-            MessageBox.Show("Data saved to CSV!");
+            shopFacade.SaveProductsToCsv("products.csv");
+            MessageBox.Show("Продукты сохранены в CSV!");
         }
 
         private void LoadFromCsvButton_Click(object sender, RoutedEventArgs e)
         {
-            shopFacade.LoadFromCsv();
-            RefreshProductsList();
-            RefreshCartList();
-            MessageBox.Show("Data loaded from CSV!");
+            shopFacade.LoadProductsFromCsv("products.csv");
+            RefreshProductList();
         }
-
         private void SaveToXmlButton_Click(object sender, RoutedEventArgs e)
         {
-            shopFacade.SaveToXml();
-            MessageBox.Show("Data saved to XML!");
+            shopFacade.SaveProductsToXml("products.xml");
+            MessageBox.Show("Продукты сохранены в XML!");
         }
 
         private void LoadFromXmlButton_Click(object sender, RoutedEventArgs e)
         {
-            shopFacade.LoadFromXml();
-            RefreshProductsList();
-            RefreshCartList();
-            MessageBox.Show("Data loaded from XML!");
+            shopFacade.LoadProductsFromXml("products.xml");
+            RefreshProductList();
         }
     }
 }

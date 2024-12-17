@@ -26,32 +26,9 @@ namespace Facade
             return false;
         }
 
-        public void SaveToCsv(string filePath)
+        public void LoadCart(List<Product> loadedCart)
         {
-            File.WriteAllLines(filePath, cart.Select(p => p.Name));
-        }
-
-        public void LoadFromCsv(string filePath)
-        {
-            if (File.Exists(filePath))
-            {
-                cart = File.ReadAllLines(filePath).Select(name => new Product { Name = name }).ToList();
-            }
-        }
-
-        public void SaveToXml(string filePath)
-        {
-            using var writer = new StreamWriter(filePath);
-            new XmlSerializer(typeof(List<Product>)).Serialize(writer, cart);
-        }
-
-        public void LoadFromXml(string filePath)
-        {
-            if (File.Exists(filePath))
-            {
-                using var reader = new StreamReader(filePath);
-                cart = (List<Product>)new XmlSerializer(typeof(List<Product>)).Deserialize(reader);
-            }
+            cart = loadedCart ?? new List<Product>();
         }
     }
 }

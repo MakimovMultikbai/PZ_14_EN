@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PZ_14_EN", "PZ_14_EN\PZ_14_EN.csproj", "{D4600DE6-8AC2-452A-BBD7-4AAD540EDA38}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facade", "Facade\Facade.csproj", "{EF822746-E440-4691-A6E6-F1E99B2CFCC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Decorator", "Decorator\Decorator.csproj", "{B1483A0F-FBA5-4A9F-8AC5-B08A3B840D33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D4600DE6-8AC2-452A-BBD7-4AAD540EDA38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4600DE6-8AC2-452A-BBD7-4AAD540EDA38}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4600DE6-8AC2-452A-BBD7-4AAD540EDA38}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D4600DE6-8AC2-452A-BBD7-4AAD540EDA38}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EF822746-E440-4691-A6E6-F1E99B2CFCC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EF822746-E440-4691-A6E6-F1E99B2CFCC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF822746-E440-4691-A6E6-F1E99B2CFCC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF822746-E440-4691-A6E6-F1E99B2CFCC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1483A0F-FBA5-4A9F-8AC5-B08A3B840D33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1483A0F-FBA5-4A9F-8AC5-B08A3B840D33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1483A0F-FBA5-4A9F-8AC5-B08A3B840D33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1483A0F-FBA5-4A9F-8AC5-B08A3B840D33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
